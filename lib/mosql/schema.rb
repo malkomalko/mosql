@@ -257,7 +257,8 @@ module MoSQL
       when Sequel::SQL::Function
         nil
       else
-        val.to_s.gsub(/([\\\t\n\r])/, '\\\\\\1')
+        val_utf8 = val.to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+        val_utf8.gsub(/([\\\t\n\r])/, '\\\\\\1')
       end
     end
 
